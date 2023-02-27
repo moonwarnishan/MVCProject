@@ -1,4 +1,6 @@
+using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.EntityFrameworkCore;
+using MVCProject.Helpers;
 using SimpleMVCProject.Data;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -7,6 +9,10 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("BasicMVC")));
+builder.Services.Configure<RazorViewEngineOptions>(options =>
+{
+    options.ViewLocationExpanders.Add(new ViewExpender());
+});
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -27,9 +33,5 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
-app.MapControllerRoute(
-    name : "Create",
-    pattern : "Demo/{controller=Person}/{action=Create}"
-    );
 
 app.Run();

@@ -29,7 +29,7 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}");
 app.MapControllerRoute(
     name : "Create",
-    pattern : "Demo/{controller=Home}/{action=Create}"
+    pattern : "Demo/{controller=Person}/{action=Create}"
     );
 
 app.Run();

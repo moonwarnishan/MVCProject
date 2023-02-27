@@ -2,7 +2,6 @@
 
 @{
     ViewData["Title"] = "Create";
-    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h1>Create</h1>
@@ -33,6 +32,7 @@
                 <input asp-for="MaritalStatus" class="form-control" />
                 <span asp-validation-for="MaritalStatus" class="text-danger"></span>
             </div>
+           
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
@@ -45,5 +45,5 @@
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("~/Views/_ValidationScriptsPartial");}
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

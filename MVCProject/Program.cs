@@ -11,7 +11,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("BasicMVC")));
 builder.Services.Configure<RazorViewEngineOptions>(options =>
 {
-    options.ViewLocationExpanders.Add(new ViewExpender());
+    options.ViewLocationExpanders.Add(new ViewExpander());
 });
 var app = builder.Build();
 

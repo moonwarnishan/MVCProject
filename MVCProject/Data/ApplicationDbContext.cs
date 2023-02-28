@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using SimpleMVCProject.Models;
+using MVCProject.Domains;
 
 namespace SimpleMVCProject.Data
 {
@@ -10,5 +10,7 @@ namespace SimpleMVCProject.Data
 
         }
         public DbSet<Person> Persons { get; set; }
+        public DbSet<Language> Languages { get; set; }
+        public DbSet<PersonsInfoLanguages> PersonInfoInDifferentLanguage { get; set; }
     }
 }

@@ -12,7 +12,7 @@ using SimpleMVCProject.Data;
 namespace MVCProject.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230227062634_initial")]
+    [Migration("20230228052912_initial")]
     partial class initial
     {
         /// <inheritdoc />
@@ -25,7 +25,22 @@ namespace MVCProject.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("SimpleMVCProject.Models.Person", b =>
+            modelBuilder.Entity("MVCProject.Domains.Language", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Languages");
+                });
+
+            modelBuilder.Entity("MVCProject.Domains.Person", b =>
                 {
                     b.Property<Guid>("Key")
                         .ValueGeneratedOnAdd()
@@ -37,13 +52,11 @@ namespace MVCProject.Migrations
                     b.Property<DateTime>("DateOfBirth")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Gender")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Gender")
+                        .HasColumnType("int");
 
-                    b.Property<string>("MaritalStatus")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("MaritalStatus")
+                        .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .IsRequired()

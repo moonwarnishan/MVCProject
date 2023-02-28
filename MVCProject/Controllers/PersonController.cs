@@ -5,26 +5,34 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using MVCProject.Domains;
+using MVCProject.Factories;
+using MVCProject.Models;
 using SimpleMVCProject.Data;
-using SimpleMVCProject.Models;
 
 namespace MVCProject.Controllers
 {
     public class PersonController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly IPersonFactory _personFactory;
 
-        public PersonController(ApplicationDbContext context)
+        public PersonController(ApplicationDbContext context, IPersonFactory personFactory)
         {
             _context = context;
+            _personFactory = personFactory;
         }
 
         // GET: Person
         public async Task<IActionResult> Index()
         {
-              return _context.Persons != null ? 
-                          View(await _context.Persons.ToListAsync()) :
-                          Problem("Entity set 'ApplicationDbContext.Persons'  is null.");
+            var persons = await _context.Persons.ToListAsync();
+            var PersonModels = new List<PersonModel>();
+            foreach(var p in persons)
+            {
+                PersonModels.Add(_personFactory.PreparePersonModel(p));
+            }
+            return View(PersonModels);
         }
 
         // GET: Person/Details/5
@@ -42,13 +50,15 @@ namespace MVCProject.Controllers
                 return NotFound();
             }
 
-            return View(person);
+            return View(_personFactory.PreparePersonModel(person));
         }
 
         // GET: Person/Create
         public IActionResult Create()
         {
-            return View();
+            var person = new Person();
+            var personModel = _personFactory.PreparePersonModel(person);
+            return View(personModel);
         }
 
         // POST: Person/Create
@@ -58,14 +68,10 @@ namespace MVCProject.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Key,Name,DateOfBirth,Gender,MaritalStatus,CreationDate")] Person person)
         {
-            if (ModelState.IsValid)
-            {
-                person.Key = Guid.NewGuid();
-                _context.Add(person);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            return View(person);
+
+            _context.Add(person);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: Person/Edit/5
@@ -81,7 +87,8 @@ namespace MVCProject.Controllers
             {
                 return NotFound();
             }
-            return View(person);
+            var personModel = _personFactory.PreparePersonModel(person);
+            return View(personModel);
         }
 
         // POST: Person/Edit/5

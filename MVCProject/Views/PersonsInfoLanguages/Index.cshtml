@@ -1,4 +1,4 @@
-﻿@model IEnumerable<MVCProject.Models.PersonModel>
+﻿@model IEnumerable<MVCProject.Models.PersonsInfoLanguagesModel>
 
 @{
     ViewData["Title"] = "Index";
@@ -7,7 +7,8 @@
 <h1>Index</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a class="btn btn-primary ml-2" asp-controller="PersonsInfoLanguages" asp-action="Create">Create New</a>
+    <a class="btn btn-primary ml-2" asp-controller="LanguageSelect" asp-action="Index">Language Select</a>
 </p>
 <table class="table">
     <thead>
@@ -15,7 +16,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.Name)
             </th>
-            <th>
+           <th>
                 @Html.DisplayNameFor(model => model.DateOfBirth)
             </th>
             <th>
@@ -25,7 +26,10 @@
                 @Html.DisplayNameFor(model => model.MaritalStatusInString)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CreationDate)
+                @Html.DisplayNameFor(model => model.Person)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Language)
             </th>
             <th></th>
         </tr>
@@ -46,12 +50,15 @@
                 @Html.DisplayFor(modelItem => item.MaritalStatusInString)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.CreationDate)
+                @Html.DisplayFor(modelItem => item.Person.Name)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Key">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Key">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Key">Delete</a>
+                @Html.DisplayFor(modelItem => item.Language.Name)
+            </td>
+            <td>
+                 <a asp-controller="PersonsInfoLanguages" asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                 <a asp-controller="PersonsInfoLanguages"  asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                 <a asp-controller="PersonsInfoLanguages" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
             </td>
         </tr>
 }

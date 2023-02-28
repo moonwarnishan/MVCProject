@@ -1,4 +1,4 @@
-﻿@model SimpleMVCProject.Models.Person
+﻿@model MVCProject.Models.PersonModel
 
 @{
     ViewData["Title"] = "Details";
@@ -23,16 +23,16 @@
             @Html.DisplayFor(model => model.DateOfBirth)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Gender)
+            @Html.DisplayNameFor(model => model.GenderInString)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Gender)
+            @Html.DisplayFor(model => model.GenderInString)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.MaritalStatus)
+            @Html.DisplayNameFor(model => model.MaritalStatusInString)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.MaritalStatus)
+            @Html.DisplayFor(model => model.MaritalStatusInString)
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.CreationDate)
